@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Objects;
+
 
 public class HealthProfessional {
 
@@ -27,7 +30,6 @@ public class HealthProfessional {
 
     /**
      * Creates a health professional and generates the next id automatically.
-     *
      * @param name        the professional's name
      * @param workingDays the days this professional works each week
      */
@@ -36,9 +38,8 @@ public class HealthProfessional {
     }
 
     /**
-     * Since A1 doesn't know anything about 
-     * error handling, this method is used 
-     * to give a warning for invalid values.
+     * Since A1 doesn't know anything about error handling, 
+     * this method is used to give a warning for invalid values.
      *
      * @return true when every value is acceptable
      */
@@ -98,5 +99,46 @@ public class HealthProfessional {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns a readable description of this professional, used whenever the
+     * object is printed or joined to a string.
+     *
+     * @return the details of this professional
+     */
+    @Override
+    public String toString() {
+        return "HealthProfessional[ID: " + id
+                + ", Name: " + name
+                + ", Days: " + Arrays.toString(workingDays) + "]";
+    }
+
+    /*
+     * Two health professionals are the same person when they have the same id.
+     *
+     * @param o the object to compare with
+     * @return true when the other object is a health professional with the same id
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HealthProfessional other = (HealthProfessional) o;
+        return Objects.equals(id, other.id);
+    }
+
+    /**
+     * Follows the rule that equal objects must return the same hash code.
+     *
+     * @return a hash code based on the id
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
