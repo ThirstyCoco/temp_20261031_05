@@ -1,8 +1,13 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-
-public class HealthProfessional {
+/**
+ * A health professional who works at the health service.
+ * This class holds the details that every type of professional shares and
+ * cannot be instantiated on its own: only the specific types created in
+ * Part 2 exist in the real service.
+ */
+public abstract class HealthProfessional {
 
     /** Counter used to generate ids when the caller does not supply one. */
     private static int idCounter = 0;
@@ -20,7 +25,7 @@ public class HealthProfessional {
      * @param name        the professional's name
      * @param workingDays the days this professional works each week
      */
-    public HealthProfessional(String id, String name, String[] workingDays) {
+    protected HealthProfessional(String id, String name, String[] workingDays) {
         this.id = id;
         this.name = name;
         // Copy the array so later changes to the caller's array cannot reach us.
@@ -33,12 +38,12 @@ public class HealthProfessional {
      * @param name        the professional's name
      * @param workingDays the days this professional works each week
      */
-    public HealthProfessional(String name, String[] workingDays) {
+    protected HealthProfessional(String name, String[] workingDays) {
         this(String.valueOf(++idCounter), name, workingDays);
     }
 
     /**
-     * Since A1 doesn't know anything about error handling, 
+     * Since A1 doesn't know anything about error handling,
      * this method is used to give a warning for invalid values.
      *
      * @return true when every value is acceptable
@@ -60,6 +65,14 @@ public class HealthProfessional {
         }
         return ok;
     }
+
+    /**
+     * Every specific type of professional has to say what kind it is.
+     * The method is abstract so a subclass cannot forget to provide it.
+     *
+     * @return the name of this type of professional
+     */
+    public abstract String getRole();
 
     public String getId() {
         return id;
@@ -103,18 +116,19 @@ public class HealthProfessional {
 
     /**
      * Returns a readable description of this professional, used whenever the
-     * object is printed or joined to a string.
+     * object is printed or joined to a string. The type comes from the
+     * subclass through getRole(), so each type prints differently.
      *
      * @return the details of this professional
      */
     @Override
     public String toString() {
-        return "HealthProfessional[ID: " + id
+        return getRole() + "[ID: " + id
                 + ", Name: " + name
                 + ", Days: " + Arrays.toString(workingDays) + "]";
     }
 
-    /*
+    /**
      * Two health professionals are the same person when they have the same id.
      *
      * @param o the object to compare with
