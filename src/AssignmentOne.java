@@ -9,7 +9,7 @@ public class AssignmentOne {
 
         String[] days = {"Monday", "Wednesday", "Friday"};
 
-        // the first concrete type of professional 
+        //the first concrete type of professional 
         GeneralPractitioner alice = new GeneralPractitioner("1001", "Alice Chen", days, "Room 3");
         System.out.println(alice);
         System.out.println(alice.prescribe("Bob Lee", "Amoxicillin"));
@@ -18,7 +18,7 @@ public class AssignmentOne {
         GeneralPractitioner david = new GeneralPractitioner("1002", "David Park", days, "Room 1");
         System.out.println(david);
 
-        //the other three types of professional 
+        //the other three types of professional
         Specialist priya = new Specialist("2001", "Priya Nair", days, "Cardiology");
         Nurse tom = new Nurse("3001", "Tom Reed", days, "Ward B");
         Dietitian sara = new Dietitian("4001", "Sara Kim", days, "Low sodium");
@@ -34,7 +34,7 @@ public class AssignmentOne {
         System.out.println(tom.takeBloodSample("Bob Lee"));
         System.out.println(sara.createMealPlan("Bob Lee"));
 
-        //every type stored and processed through one common type ---
+        //every type stored and processed through one common type
         List<HealthProfessional> professionals = new ArrayList<>();
         professionals.add(alice);
         professionals.add(david);
@@ -48,6 +48,18 @@ public class AssignmentOne {
         System.out.println("\n-- Part 3: all professionals in one collection --");
         displayAll(professionals);
         System.out.println("Total professionals: " + professionals.size());
+
+        //the patient recorded on an appointment
+        Patient bob = new Patient("Bob Lee", "0412345678");
+        Patient bobAgain = new Patient("Robert Lee", "0412345678");
+
+        System.out.println("\n-- Part 4: patient details --");
+        System.out.println(bob);
+        System.out.println("Same phone -> same patient? " + bob.equals(bobAgain));
+
+        System.out.println("\n-- invalid patient input --");
+        new Patient("   ", "0412345678");
+        new Patient("Carol Ng", "12345");
     }
 
     /** Prints one professional. The object decides how it describes itself. */
