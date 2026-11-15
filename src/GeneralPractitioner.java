@@ -48,7 +48,7 @@ public class GeneralPractitioner extends HealthProfessional {
 
     /*
       Identifies this professional as a general practitioner.
-     
+      
       @return the role name
      */
     @Override
