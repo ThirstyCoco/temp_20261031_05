@@ -98,6 +98,28 @@ public class AssignmentOne {
         System.out.println("Is 0930 a valid slot? " + AppointmentManager.isValidSlot("0930"));
         System.out.println("Is 0945 a valid slot? " + AppointmentManager.isValidSlot("0945"));
         System.out.println("Is 1700 a valid slot? " + AppointmentManager.isValidSlot("1700"));
+
+        // booking appointments and rejecting double bookings 
+        AppointmentManager manager = new AppointmentManager();
+
+        System.out.println("\n-- Part 5: booking appointments --");
+        printResult(manager.addAppointment(bob, alice, "0930"));
+        printResult(manager.addAppointment(carol, alice, "1100"));
+        printResult(manager.addAppointment(carol, alice, "0930"));
+        printResult(manager.addAppointment(bob, priya, "0930"));
+        printResult(manager.addAppointment(bob, alice, "0945"));
+
+        System.out.println("\n-- Part 5: appointments currently booked --");
+        displayAppointments(manager.getAppointments());
+    }
+
+    /** Prints the outcome of a booking attempt, where null means it was booked. */
+    private static void printResult(String warning) {
+        if (warning == null) {
+            System.out.println("Booked.");
+        } else {
+            System.out.println(warning);
+        }
     }
 
     /** Prints one professional. The object decides how it describes itself. */
