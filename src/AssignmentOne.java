@@ -88,6 +88,16 @@ public class AssignmentOne {
 
         System.out.println("\n-- Part 4: after sorting --");
         displayAppointments(day);
+
+        //the clinic runs to a fixed daily schedule of time slots
+        String[] slots = AppointmentManager.getClinicSlots();
+
+        System.out.println("\n-- Part 5: clinic time slots --");
+        System.out.println("Slots per day: " + slots.length);
+        System.out.println("First slot: " + slots[0] + ", last slot: " + slots[slots.length - 1]);
+        System.out.println("Is 0930 a valid slot? " + AppointmentManager.isValidSlot("0930"));
+        System.out.println("Is 0945 a valid slot? " + AppointmentManager.isValidSlot("0945"));
+        System.out.println("Is 1700 a valid slot? " + AppointmentManager.isValidSlot("1700"));
     }
 
     /** Prints one professional. The object decides how it describes itself. */
