@@ -130,4 +130,32 @@ public class AppointmentManager {
             System.out.println(appointment);
         }
     }
+
+    /** Cancels the appointment of this professional at this time. Returns how many were removed. */
+    public int cancelByProfessionalAndTime(String professionalId, String timeSlot) {
+        List<Appointment> matching = new ArrayList<>();
+        if (professionalId != null && timeSlot != null) {
+            for (Appointment appointment : appointments) {
+                if (professionalId.equals(appointment.getProfessional().getId())
+                        && timeSlot.equals(appointment.getTimeSlot())) {
+                    matching.add(appointment);
+                }
+            }
+        }
+        return cancelAll(matching);
+    }
+
+    /** Cancels every appointment of this patient. Returns how many were removed. */
+    public int cancelByPatientPhone(String phone) {
+        return cancelAll(filterByPatientPhone(phone));
+    }
+
+    /** Removes the given appointments from the clinic. Returns how many were removed. */
+    private int cancelAll(List<Appointment> toRemove) {
+        if (toRemove == null || toRemove.isEmpty()) {
+            return 0;
+        }
+        appointments.removeAll(toRemove);
+        return toRemove.size();
+    }
 }

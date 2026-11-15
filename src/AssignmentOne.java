@@ -129,6 +129,28 @@ public class AssignmentOne {
 
         System.out.println("\n-- Part 5: one patient's appointments sorted by time --");
         manager.printAppointments(manager.sortByTime(manager.filterByPatientPhone("0433221100")));
+
+        //cancelling appointments by two different inputs 
+        System.out.println("\n-- Part 5: cancel the appointment of professional 1001 at 0930 --");
+        printCancelled(manager.cancelByProfessionalAndTime("1001", "0930"));
+
+        System.out.println("\n-- Part 5: cancel every appointment for phone 0433221100 --");
+        printCancelled(manager.cancelByPatientPhone("0433221100"));
+
+        System.out.println("\n-- Part 5: cancel an appointment that does not exist --");
+        printCancelled(manager.cancelByProfessionalAndTime("9999", "0930"));
+
+        System.out.println("\n-- Part 5: appointments left after cancelling --");
+        manager.printAppointments(manager.getAppointments());
+    }
+
+    /** Prints how many appointments a cancellation removed. */
+    private static void printCancelled(int count) {
+        if (count == 0) {
+            System.out.println("No matching appointment found.");
+        } else {
+            System.out.println("Cancelled " + count + " appointment(s).");
+        }
     }
 
     /** Prints the outcome of a booking attempt, where null means it was booked. */
