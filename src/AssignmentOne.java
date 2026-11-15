@@ -111,6 +111,19 @@ public class AssignmentOne {
 
         System.out.println("\n-- Part 5: appointments currently booked --");
         displayAppointments(manager.getAppointments());
+
+        // viewing a subset of the appointments
+        System.out.println("\n-- Part 5: appointments for professional 1001 --");
+        displayAppointments(manager.filterByProfessionalId("1001"));
+
+        System.out.println("\n-- Part 5: appointments for phone 0433221100 --");
+        displayAppointments(manager.filterByPatientPhone("0433221100"));
+
+        System.out.println("\n-- Part 5: appointments for an unknown professional --");
+        List<Appointment> unknown = manager.filterByProfessionalId("9999");
+        if (unknown.isEmpty()) {
+            System.out.println("No appointments found for professional 9999.");
+        }
     }
 
     /** Prints the outcome of a booking attempt, where null means it was booked. */

@@ -74,4 +74,32 @@ public class AppointmentManager {
     public List<Appointment> getAppointments() {
         return new ArrayList<>(appointments);
     }
+
+    /** Returns the appointments booked with the professional that has this id. */
+    public List<Appointment> filterByProfessionalId(String professionalId) {
+        List<Appointment> matching = new ArrayList<>();
+        if (professionalId == null) {
+            return matching;
+        }
+        for (Appointment appointment : appointments) {
+            if (professionalId.equals(appointment.getProfessional().getId())) {
+                matching.add(appointment);
+            }
+        }
+        return matching;
+    }
+
+    /** Returns the appointments booked for the patient with this phone number. */
+    public List<Appointment> filterByPatientPhone(String phone) {
+        List<Appointment> matching = new ArrayList<>();
+        if (phone == null) {
+            return matching;
+        }
+        for (Appointment appointment : appointments) {
+            if (phone.equals(appointment.getPatient().getPhone())) {
+                matching.add(appointment);
+            }
+        }
+        return matching;
+    }
 }
