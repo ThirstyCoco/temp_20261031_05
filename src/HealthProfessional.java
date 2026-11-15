@@ -1,15 +1,15 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * A health professional who works at the health service.
- * This class holds the details that every type of professional shares and
- * cannot be instantiated on its own: only the specific types created in
- * Part 2 exist in the real service.
+/*
+  A health professional who works at the health service.
+  This class holds the details that every type of professional shares and
+  cannot be instantiated on its own: only the specific types created in
+  Part 2 exist in the real service.
  */
 public abstract class HealthProfessional {
 
-    /** Counter used to generate ids when the caller does not supply one. */
+    /* Counter used to generate ids when the caller does not supply one. */
     private static int idCounter = 0;
 
     private final String id;
@@ -18,12 +18,12 @@ public abstract class HealthProfessional {
     /** False when any of the values passed to the constructor were invalid. */
     private final boolean valid;
 
-    /**
-     * Creates a health professional with an id supplied by the caller.
-     *
-     * @param id          the professional's id, which must contain digits only
-     * @param name        the professional's name
-     * @param workingDays the days this professional works each week
+    /*
+      Creates a health professional with an id supplied by the caller.
+     
+      @param id          the professional's id, which must contain digits only
+      @param name        the professional's name
+      @param workingDays the days this professional works each week
      */
     protected HealthProfessional(String id, String name, String[] workingDays) {
         this.id = id;
@@ -33,20 +33,20 @@ public abstract class HealthProfessional {
         this.valid = validate();
     }
 
-    /**
-     * Creates a health professional and generates the next id automatically.
-     * @param name        the professional's name
-     * @param workingDays the days this professional works each week
+    /*
+      Creates a health professional and generates the next id automatically.
+      @param name        the professional's name
+      @param workingDays the days this professional works each week
      */
     protected HealthProfessional(String name, String[] workingDays) {
         this(String.valueOf(++idCounter), name, workingDays);
     }
 
-    /**
-     * Since A1 doesn't know anything about error handling,
-     * this method is used to give a warning for invalid values.
-     *
-     * @return true when every value is acceptable
+    /*
+      Since A1 doesn't know anything about error handling,
+      this method is used to give a warning for invalid values.
+     
+      @return true when every value is acceptable
      */
     private boolean validate() {
         boolean ok = true;
@@ -66,11 +66,11 @@ public abstract class HealthProfessional {
         return ok;
     }
 
-    /**
-     * Every specific type of professional has to say what kind it is.
-     * The method is abstract so a subclass cannot forget to provide it.
-     *
-     * @return the name of this type of professional
+    /*
+      Every specific type of professional has to say what kind it is.
+      The method is abstract so a subclass cannot forget to provide it.
+     
+      @return the name of this type of professional
      */
     public abstract String getRole();
 
@@ -82,11 +82,11 @@ public abstract class HealthProfessional {
         return name;
     }
 
-    /**
-     * Returns a copy of the working days, so external code cannot change the
-     * array this object holds.
-     *
-     * @return a copy of the working days
+    /*
+      Returns a copy of the working days, so external code cannot change the
+      array this object holds.
+     
+      @return a copy of the working days
      */
     public String[] getWorkingDays() {
         return workingDays.clone();
@@ -96,11 +96,11 @@ public abstract class HealthProfessional {
         return valid;
     }
 
-    /**
-     * Tells whether this professional works on the given day.
-     *
-     * @param day the day to check, for example "Monday"
-     * @return true when the day appears in the professional's working days
+    /*
+      Tells whether this professional works on the given day.
+     
+      @param day the day to check, for example "Monday"
+      @return true when the day appears in the professional's working days
      */
     public boolean worksOn(String day) {
         if (day == null) {
@@ -114,12 +114,12 @@ public abstract class HealthProfessional {
         return false;
     }
 
-    /**
-     * Returns a readable description of this professional, used whenever the
-     * object is printed or joined to a string. The type comes from the
-     * subclass through getRole(), so each type prints differently.
-     *
-     * @return the details of this professional
+    /*
+      Returns a readable description of this professional, used whenever the
+      object is printed or joined to a string. The type comes from the
+      subclass through getRole(), so each type prints differently.
+     
+      @return the details of this professional
      */
     @Override
     public String toString() {
@@ -128,11 +128,11 @@ public abstract class HealthProfessional {
                 + ", Days: " + Arrays.toString(workingDays) + "]";
     }
 
-    /**
-     * Two health professionals are the same person when they have the same id.
-     *
-     * @param o the object to compare with
-     * @return true when the other object is a health professional with the same id
+    /*
+      Two health professionals are the same person when they have the same id.
+     
+      @param o the object to compare with
+      @return true when the other object is a health professional with the same id
      */
     @Override
     public boolean equals(Object o) {
@@ -146,10 +146,10 @@ public abstract class HealthProfessional {
         return Objects.equals(id, other.id);
     }
 
-    /**
-     * Follows the rule that equal objects must return the same hash code.
-     *
-     * @return a hash code based on the id
+    /*
+      Follows the rule that equal objects must return the same hash code.
+     
+      @return a hash code based on the id
      */
     @Override
     public int hashCode() {
