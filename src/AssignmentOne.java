@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class AssignmentOne {
 
     public static void main(String[] args) {
@@ -9,7 +10,7 @@ public class AssignmentOne {
 
         String[] days = {"Monday", "Wednesday", "Friday"};
 
-        //the first concrete type of professional 
+        // the first concrete type of professional 
         GeneralPractitioner alice = new GeneralPractitioner("1001", "Alice Chen", days, "Room 3");
         System.out.println(alice);
         System.out.println(alice.prescribe("Bob Lee", "Amoxicillin"));
@@ -18,7 +19,7 @@ public class AssignmentOne {
         GeneralPractitioner david = new GeneralPractitioner("1002", "David Park", days, "Room 1");
         System.out.println(david);
 
-        //  the other three types of professional 
+        // the other three types of professional 
         Specialist priya = new Specialist("2001", "Priya Nair", days, "Cardiology");
         Nurse tom = new Nurse("3001", "Tom Reed", days, "Ward B");
         Dietitian sara = new Dietitian("4001", "Sara Kim", days, "Low sodium");
@@ -34,7 +35,7 @@ public class AssignmentOne {
         System.out.println(tom.takeBloodSample("Bob Lee"));
         System.out.println(sara.createMealPlan("Bob Lee"));
 
-        //  every type stored and processed through one common type 
+        //every type stored and processed through one common type 
         List<HealthProfessional> professionals = new ArrayList<>();
         professionals.add(alice);
         professionals.add(david);
@@ -49,7 +50,7 @@ public class AssignmentOne {
         displayAll(professionals);
         System.out.println("Total professionals: " + professionals.size());
 
-        // the patient recorded on an appointment 
+        //the patient recorded on an appointment 
         Patient bob = new Patient("Bob Lee", "0412345678");
         Patient bobAgain = new Patient("Robert Lee", "0412345678");
 
@@ -74,7 +75,7 @@ public class AssignmentOne {
         System.out.println("\n-- invalid appointment input --");
         new Appointment(bob, alice, "9:30");
 
-        //a day's appointments sorted from earliest to latest
+        //a day's appointments sorted from earliest to latest 
         List<Appointment> day = new ArrayList<>();
         day.add(new Appointment(bob, priya, "1400"));
         day.add(new Appointment(carol, alice, "0830"));
@@ -89,7 +90,7 @@ public class AssignmentOne {
         System.out.println("\n-- Part 4: after sorting --");
         displayAppointments(day);
 
-        //the clinic runs to a fixed daily schedule of time slots
+        //the clinic runs to a fixed daily schedule of time slots 
         String[] slots = AppointmentManager.getClinicSlots();
 
         System.out.println("\n-- Part 5: clinic time slots --");
@@ -99,7 +100,7 @@ public class AssignmentOne {
         System.out.println("Is 0945 a valid slot? " + AppointmentManager.isValidSlot("0945"));
         System.out.println("Is 1700 a valid slot? " + AppointmentManager.isValidSlot("1700"));
 
-        // booking appointments and rejecting double bookings 
+        //booking appointments and rejecting double bookings 
         AppointmentManager manager = new AppointmentManager();
 
         System.out.println("\n-- Part 5: booking appointments --");
@@ -110,20 +111,24 @@ public class AssignmentOne {
         printResult(manager.addAppointment(bob, alice, "0945"));
 
         System.out.println("\n-- Part 5: appointments currently booked --");
-        displayAppointments(manager.getAppointments());
+        manager.printAppointments(manager.getAppointments());
 
-        // viewing a subset of the appointments
+        //viewing a subset of the appointments 
         System.out.println("\n-- Part 5: appointments for professional 1001 --");
-        displayAppointments(manager.filterByProfessionalId("1001"));
+        manager.printAppointments(manager.filterByProfessionalId("1001"));
 
         System.out.println("\n-- Part 5: appointments for phone 0433221100 --");
-        displayAppointments(manager.filterByPatientPhone("0433221100"));
+        manager.printAppointments(manager.filterByPatientPhone("0433221100"));
 
         System.out.println("\n-- Part 5: appointments for an unknown professional --");
-        List<Appointment> unknown = manager.filterByProfessionalId("9999");
-        if (unknown.isEmpty()) {
-            System.out.println("No appointments found for professional 9999.");
-        }
+        manager.printAppointments(manager.filterByProfessionalId("9999"));
+
+        // Sorting can be applied to everything or to a filtered subset
+        System.out.println("\n-- Part 5: every appointment sorted by time --");
+        manager.printAppointments(manager.getSortedAppointments());
+
+        System.out.println("\n-- Part 5: one patient's appointments sorted by time --");
+        manager.printAppointments(manager.sortByTime(manager.filterByPatientPhone("0433221100")));
     }
 
     /** Prints the outcome of a booking attempt, where null means it was booked. */

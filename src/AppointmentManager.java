@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /** Manages the appointments booked at the clinic. */
@@ -101,5 +102,32 @@ public class AppointmentManager {
             }
         }
         return matching;
+    }
+
+    /** Returns the given appointments sorted from earliest to latest. */
+    public List<Appointment> sortByTime(List<Appointment> appointments) {
+        if (appointments == null) {
+            return new ArrayList<>();
+        }
+        // Sort a copy, so the caller's list keeps its original order
+        List<Appointment> sorted = new ArrayList<>(appointments);
+        Collections.sort(sorted);
+        return sorted;
+    }
+
+    /** Returns every booked appointment sorted from earliest to latest. */
+    public List<Appointment> getSortedAppointments() {
+        return sortByTime(appointments);
+    }
+
+    /** Prints the given appointments, or a message when there are none. */
+    public void printAppointments(List<Appointment> appointments) {
+        if (appointments == null || appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
     }
 }
