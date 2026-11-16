@@ -1,14 +1,16 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 public class AssignmentOne {
 
+    /** Runs the demonstration for each part of the assignment. */
     public static void main(String[] args) {
         System.out.println("=== PROG2004 Assessment 1 ===");
 
         String[] days = {"Monday", "Wednesday", "Friday"};
 
-        // the first concrete type of professional 
+        //Part 1 and Part 2: the first concrete type of professional
         GeneralPractitioner alice = new GeneralPractitioner("1001", "Alice Chen", days, "Room 3");
         System.out.println(alice);
         System.out.println(alice.prescribe("Bob Lee", "Amoxicillin"));
@@ -17,7 +19,17 @@ public class AssignmentOne {
         GeneralPractitioner david = new GeneralPractitioner("1002", "David Park", days, "Room 1");
         System.out.println(david);
 
-        // the other three types of professional 
+        // Day names are stored using the clinic's official spelling
+        GeneralPractitioner wei = new GeneralPractitioner("1004", "Wei Tan",
+                new String[]{"monday", "WEDNESDAY"}, "Room 4");
+        System.out.println(wei);
+
+        // A day that is not a real day of the week is rejected
+        System.out.println("\n-- invalid working day --");
+        new GeneralPractitioner("1005", "Lena Ortiz",
+                new String[]{"Monday", "Mondy"}, "Room 5");
+
+        // Part 2: the other three types of professional 
         Specialist priya = new Specialist("2001", "Priya Nair", days, "Cardiology");
         Nurse tom = new Nurse("3001", "Tom Reed", days, "Ward B");
         Dietitian sara = new Dietitian("4001", "Sara Kim", days, "Low sodium");
@@ -33,7 +45,7 @@ public class AssignmentOne {
         System.out.println(tom.takeBloodSample("Bob Lee"));
         System.out.println(sara.createMealPlan("Bob Lee"));
 
-        //every type stored and processed through one common type 
+        //Part 3: every type stored and processed through one common type 
         List<HealthProfessional> professionals = new ArrayList<>();
         professionals.add(alice);
         professionals.add(david);
@@ -48,7 +60,7 @@ public class AssignmentOne {
         displayAll(professionals);
         System.out.println("Total professionals: " + professionals.size());
 
-        //the patient recorded on an appointment 
+        //Part 4: the patient recorded on an appointment 
         Patient bob = new Patient("Bob Lee", "0412345678");
         Patient bobAgain = new Patient("Robert Lee", "0412345678");
 
@@ -60,7 +72,7 @@ public class AssignmentOne {
         new Patient("   ", "0412345678");
         new Patient("Carol Ng", "12345");
 
-        //an appointment links a patient to a professional and a time 
+        //Part 4: an appointment links a patient to a professional and a time 
         Patient carol = new Patient("Carol Ng", "0433221100");
         Appointment first = new Appointment(bob, alice, "0930");
         Appointment clash = new Appointment(carol, alice, "0930");
@@ -73,7 +85,7 @@ public class AssignmentOne {
         System.out.println("\n-- invalid appointment input --");
         new Appointment(bob, alice, "9:30");
 
-        //a day's appointments sorted from earliest to latest 
+        // Part 4: a day's appointments sorted from earliest to latest 
         List<Appointment> day = new ArrayList<>();
         day.add(new Appointment(bob, priya, "1400"));
         day.add(new Appointment(carol, alice, "0830"));
@@ -88,7 +100,7 @@ public class AssignmentOne {
         System.out.println("\n-- Part 4: after sorting --");
         displayAppointments(day);
 
-        //the clinic runs to a fixed daily schedule of time slots 
+        // Part 5: the clinic runs to a fixed daily schedule of time slots 
         String[] slots = AppointmentManager.getClinicSlots();
 
         System.out.println("\n-- Part 5: clinic time slots --");
@@ -98,7 +110,7 @@ public class AssignmentOne {
         System.out.println("Is 0945 a valid slot? " + AppointmentManager.isValidSlot("0945"));
         System.out.println("Is 1700 a valid slot? " + AppointmentManager.isValidSlot("1700"));
 
-        //booking appointments and rejecting double bookings 
+        // Part 5: booking appointments and rejecting double bookings 
         AppointmentManager manager = new AppointmentManager();
 
         System.out.println("\n-- Part 5: booking appointments --");
@@ -111,7 +123,7 @@ public class AssignmentOne {
         System.out.println("\n-- Part 5: appointments currently booked --");
         manager.printAppointments(manager.getAppointments());
 
-        //viewing a subset of the appointments 
+        //  Part 5: viewing a subset of the appointments 
         System.out.println("\n-- Part 5: appointments for professional 1001 --");
         manager.printAppointments(manager.filterByProfessionalId("1001"));
 
@@ -128,7 +140,7 @@ public class AssignmentOne {
         System.out.println("\n-- Part 5: one patient's appointments sorted by time --");
         manager.printAppointments(manager.sortByTime(manager.filterByPatientPhone("0433221100")));
 
-        //cancelling appointments by two different inputs 
+        // Part 5: cancelling appointments by two different inputs 
         System.out.println("\n-- Part 5: cancel the appointment of professional 1001 at 0930 --");
         printCancelled(manager.cancelByProfessionalAndTime("1001", "0930"));
 
@@ -141,7 +153,7 @@ public class AssignmentOne {
         System.out.println("\n-- Part 5: appointments left after cancelling --");
         manager.printAppointments(manager.getAppointments());
 
-        //the whole system working end to end 
+        // Part 6: the whole system working end to end 
         AppointmentManager clinic = new AppointmentManager();
         Patient mia = new Patient("Mia Wong", "0400111222");
         Patient noah = new Patient("Noah Bell", "0400333444");
@@ -168,7 +180,7 @@ public class AssignmentOne {
         printCancelled(clinic.cancelByProfessionalAndTime("2001", "1000"));
         manager.printAppointments(clinic.getAppointments());
 
-        //what happens when an operation cannot be completed 
+        //  Part 6: what happens when an operation cannot be completed 
         System.out.println("\n-- Part 6: error and edge cases --");
 
         System.out.println("\n1. Same professional, same time slot:");

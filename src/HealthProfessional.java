@@ -7,6 +7,11 @@ public abstract class HealthProfessional {
     /** Counter used to generate ids when the caller does not supply one. */
     private static int idCounter = 0;
 
+    /** The only day names the health service recognises. */
+    private static final String[] VALID_DAYS = {
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    };
+
     private final String id;
     private final String name;
     private final String[] workingDays;
@@ -27,7 +32,8 @@ public abstract class HealthProfessional {
         this(String.valueOf(++idCounter), name, workingDays);
     }
 
-    /** Checks the stored values and reports anything that would make this object invalid. */
+    /** Checks the stored values, reports anything invalid, and stores the official
+        spelling of every recognised working day. */
     private boolean validate() {
         boolean ok = true;
 
@@ -43,7 +49,30 @@ public abstract class HealthProfessional {
             System.out.println("Warning: at least one working day is required.");
             ok = false;
         }
+        for (int i = 0; i < workingDays.length; i++) {
+            String officialName = officialDay(workingDays[i]);
+            if (officialName == null) {
+                System.out.println("Warning: \"" + workingDays[i]
+                        + "\" is not a day of the week.");
+                ok = false;
+            } else {
+                workingDays[i] = officialName;
+            }
+        }
         return ok;
+    }
+
+    /** Returns the official spelling of a day, or null when the name is unknown. */
+    private static String officialDay(String day) {
+        if (day == null) {
+            return null;
+        }
+        for (String validDay : VALID_DAYS) {
+            if (validDay.equalsIgnoreCase(day.trim())) {
+                return validDay;
+            }
+        }
+        return null;
     }
 
     /** Every specific type has to say what kind of professional it is. */
