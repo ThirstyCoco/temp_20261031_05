@@ -142,6 +142,33 @@ public class AssignmentOne {
 
         System.out.println("\n-- Part 5: appointments left after cancelling --");
         manager.printAppointments(manager.getAppointments());
+
+        //the whole system working end to end 
+        AppointmentManager clinic = new AppointmentManager();
+        Patient mia = new Patient("Mia Wong", "0400111222");
+        Patient noah = new Patient("Noah Bell", "0400333444");
+
+        clinic.addAppointment(mia, alice, "0900");
+        clinic.addAppointment(noah, priya, "1000");
+        clinic.addAppointment(mia, tom, "1130");
+        clinic.addAppointment(noah, sara, "1400");
+        clinic.addAppointment(mia, david, "0830");
+
+        System.out.println("\n-- Part 6: every appointment booked today --");
+        manager.printAppointments(clinic.getAppointments());
+
+        System.out.println("\n-- Part 6: appointments with professional 2001 --");
+        manager.printAppointments(clinic.filterByProfessionalId("2001"));
+
+        System.out.println("\n-- Part 6: appointments for phone 0400111222 --");
+        manager.printAppointments(clinic.filterByPatientPhone("0400111222"));
+
+        System.out.println("\n-- Part 6: the day in time order --");
+        manager.printAppointments(clinic.getSortedAppointments());
+
+        System.out.println("\n-- Part 6: after cancelling the 1000 appointment --");
+        printCancelled(clinic.cancelByProfessionalAndTime("2001", "1000"));
+        manager.printAppointments(clinic.getAppointments());
     }
 
     /** Prints how many appointments a cancellation removed. */
