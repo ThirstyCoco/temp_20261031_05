@@ -23,6 +23,7 @@ public class GeneralPractitioner extends HealthProfessional {
         return clinicRoom;
     }
 
+    /** Returns the room this general practitioner consults in. */
     public String getClinicRoom() {
         return clinicRoom;
     }

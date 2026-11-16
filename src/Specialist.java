@@ -15,6 +15,7 @@ public class Specialist extends HealthProfessional {
         this.specialty = (specialty == null || specialty.trim().isEmpty()) ? "General" : specialty;
     }
 
+    /** Returns the specialty of this specialist, for example "Cardiology". */
     public String getSpecialty() {
         return specialty;
     }

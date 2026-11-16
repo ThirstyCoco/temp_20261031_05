@@ -15,6 +15,7 @@ public class Nurse extends HealthProfessional {
         this.ward = (ward == null || ward.trim().isEmpty()) ? "Unassigned" : ward;
     }
 
+    /** Returns the ward this nurse works on. */
     public String getWard() {
         return ward;
     }

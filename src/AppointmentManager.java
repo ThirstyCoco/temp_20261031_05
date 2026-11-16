@@ -5,21 +5,27 @@ import java.util.List;
 /** Manages the appointments booked at the clinic. */
 public class AppointmentManager {
 
-    /** The clinic runs from 08:00 to 16:00 in thirty minute slots. */
+    /** The clinic opens at this hour and closes at this hour. */
+    private static final int OPEN_HOUR = 8;
+    private static final int CLOSE_HOUR = 16;
+    /** Each bookable appointment lasts this many minutes. */
+    private static final int SLOT_MINUTES = 30;
+
+    /** The clinic's daily schedule, built from the three settings above. */
     private static final String[] CLINIC_SLOTS = buildSlots();
 
     private final List<Appointment> appointments = new ArrayList<>();
 
-    /** Builds the daily schedule with a loop so the format cannot be mistyped. */
+    /** Builds the daily schedule from the opening hours and the slot length. */
     private static String[] buildSlots() {
-        String[] slots = new String[17];
-        int index = 0;
+        int totalSlots = (CLOSE_HOUR - OPEN_HOUR) * 60 / SLOT_MINUTES + 1;
+        String[] slots = new String[totalSlots];
 
-        for (int hour = 8; hour <= 16; hour++) {
-            slots[index++] = String.format("%02d00", hour);
-            if (hour < 16) {
-                slots[index++] = String.format("%02d30", hour);
-            }
+        for (int i = 0; i < totalSlots; i++) {
+            int minutesFromOpen = i * SLOT_MINUTES;
+            int hour = OPEN_HOUR + minutesFromOpen / 60;
+            int minute = minutesFromOpen % 60;
+            slots[i] = String.format("%02d%02d", hour, minute);
         }
         return slots;
     }
@@ -43,7 +49,8 @@ public class AppointmentManager {
     }
 
     /** Books an appointment. Returns null when it was booked, otherwise a warning. */
-    public String addAppointment(Patient patient, HealthProfessional professional, String timeSlot) {
+    public String addAppointment(Patient patient, HealthProfessional professional,
+                                 String timeSlot) {
         if (patient == null || professional == null) {
             return "Appointment not booked: patient and health professional are required.";
         }

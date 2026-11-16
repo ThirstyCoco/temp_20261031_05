@@ -24,7 +24,8 @@ public class Appointment implements Comparable<Appointment> {
             ok = false;
         }
         if (professional == null || !professional.isValid()) {
-            System.out.println("Warning: a valid health professional is required for an appointment.");
+            System.out.println("Warning: a valid health professional is required "
+                    + "for an appointment.");
             ok = false;
         }
         if (timeSlot == null || !timeSlot.matches("\\d{4}")) {
@@ -35,18 +36,22 @@ public class Appointment implements Comparable<Appointment> {
         return ok;
     }
 
+    /** Returns the patient this appointment is for. */
     public Patient getPatient() {
         return patient;
     }
 
+    /** Returns the health professional this appointment is with. */
     public HealthProfessional getProfessional() {
         return professional;
     }
 
+    /** Returns the time slot of this appointment, for example "0930". */
     public String getTimeSlot() {
         return timeSlot;
     }
 
+    /** Tells whether this appointment was created from acceptable values. */
     public boolean isValid() {
         return valid;
     }

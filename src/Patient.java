@@ -8,13 +8,7 @@ public class Patient {
     /** False when any of the values passed to the constructor were invalid. */
     private final boolean valid;
 
-    /**
-      Creates a patient. The name must not be empty and the phone number must
-      contain exactly ten digits.
-     
-      @param name  the patient's name
-      @param phone the patient's mobile phone number
-     */
+    /** Creates a patient from a name and a ten digit phone number. */
     public Patient(String name, String phone) {
         this.name = name;
         this.phone = (phone == null) ? null : phone.trim();
@@ -37,14 +31,17 @@ public class Patient {
         return ok;
     }
 
+    /** Returns the patient's name. */
     public String getName() {
         return name;
     }
 
+    /** Returns the patient's phone number. */
     public String getPhone() {
         return phone;
     }
 
+    /** Tells whether this patient was created from acceptable values. */
     public boolean isValid() {
         return valid;
     }

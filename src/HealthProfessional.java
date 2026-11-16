@@ -49,10 +49,12 @@ public abstract class HealthProfessional {
     /** Every specific type has to say what kind of professional it is. */
     public abstract String getRole();
 
+    /** Returns the id of this professional. */
     public String getId() {
         return id;
     }
 
+    /** Returns the professional's name. */
     public String getName() {
         return name;
     }
@@ -62,6 +64,7 @@ public abstract class HealthProfessional {
         return workingDays.clone();
     }
 
+    /** Tells whether this professional was created from acceptable values. */
     public boolean isValid() {
         return valid;
     }

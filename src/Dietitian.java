@@ -15,6 +15,7 @@ public class Dietitian extends HealthProfessional {
         this.dietType = (dietType == null || dietType.trim().isEmpty()) ? "General" : dietType;
     }
 
+    /** Returns the type of diet this dietitian specialises in. */
     public String getDietType() {
         return dietType;
     }
@@ -30,7 +31,8 @@ public class Dietitian extends HealthProfessional {
         if (patientName == null || patientName.trim().isEmpty()) {
             return "Meal plan not created: a patient name is required.";
         }
-        return getName() + " created a " + dietType.toLowerCase() + " meal plan for " + patientName + ".";
+        return getName() + " created a " + dietType.toLowerCase()
+                + " meal plan for " + patientName + ".";
     }
 
     /** Adds the diet type to the details provided by the parent class. */
