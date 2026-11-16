@@ -169,6 +169,31 @@ public class AssignmentOne {
         System.out.println("\n-- Part 6: after cancelling the 1000 appointment --");
         printCancelled(clinic.cancelByProfessionalAndTime("2001", "1000"));
         manager.printAppointments(clinic.getAppointments());
+
+        //what happens when an operation cannot be completed 
+        System.out.println("\n-- Part 6: error and edge cases --");
+
+        System.out.println("\n1. Same professional, same time slot:");
+        printResult(clinic.addAppointment(noah, david, "0830"));
+
+        System.out.println("\n2. Same time slot, different professional, which is allowed:");
+        printResult(clinic.addAppointment(noah, sara, "0830"));
+
+        System.out.println("\n3. Cancelling an appointment that does not exist:");
+        printCancelled(clinic.cancelByProfessionalAndTime("9999", "1200"));
+
+        System.out.println("\n4. Time slot in the wrong format:");
+        printResult(clinic.addAppointment(noah, alice, "8:30"));
+
+        System.out.println("\n5. Time slot outside the clinic's opening hours:");
+        printResult(clinic.addAppointment(noah, alice, "1730"));
+
+        System.out.println("\n6. Appointment with an invalid patient:");
+        Patient invalid = new Patient("", "123");
+        printResult(clinic.addAppointment(invalid, alice, "1500"));
+
+        System.out.println("\n-- Part 6: the collection after the error cases --");
+        manager.printAppointments(clinic.getAppointments());
     }
 
     /** Prints how many appointments a cancellation removed. */
